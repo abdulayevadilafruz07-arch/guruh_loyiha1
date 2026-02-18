@@ -10,7 +10,24 @@
   <header>
       <h1><a href="{% url 'home' %}">GURUH BLOG</a></h1>
   </header>
-<div>
+
+  {% if user.is_authenticated %}
+    <p>Xush kelibsiz, {{ user.username }}</p>
+
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Chiqish</button>
+    </form>
+
+  {% else %}
+    <p>
+        <a href="{% url 'login' %}">Saytga kirish</a>
+    </p>
+  {% endif %}
+
+
+
+  <div>
     {% block content %}
     {% endblock content %}
 </div>
